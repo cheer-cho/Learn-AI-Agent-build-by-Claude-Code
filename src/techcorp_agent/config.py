@@ -18,6 +18,9 @@ class Settings(BaseSettings):
         env_file=PROJECT_ROOT / ".env",
         env_file_encoding="utf-8",
         extra="ignore",
+        # Blank lines like `TECHCORP_OFFLINE=` in .env mean "use the default",
+        # not "parse empty string as a bool".
+        env_ignore_empty=True,
     )
 
     # LLM provider (any OpenAI-compatible endpoint)

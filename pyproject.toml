@@ -42,7 +42,8 @@ packages = ["src/techcorp_agent"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests", "course"]
-addopts = "-m 'not live' -q"
+# importlib mode lets every module keep the same tests/test_solution.py naming.
+addopts = "-m 'not live' -q --import-mode=importlib"
 markers = [
     "live: requires a real LLM API key and spends credits (run with: pytest -m live)",
 ]
