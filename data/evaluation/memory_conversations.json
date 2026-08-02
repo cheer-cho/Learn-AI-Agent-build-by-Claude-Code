@@ -1,0 +1,97 @@
+{
+  "conversations": [
+    {
+      "id": "memory-conv-001",
+      "turns": [
+        {
+          "role": "user",
+          "content": "I'm planning to work remotely from Spain for a few weeks this autumn. What does TechCorp allow?"
+        },
+        {
+          "role": "user",
+          "content": "What if I stay longer than that?"
+        },
+        {
+          "role": "user",
+          "content": "And how far in advance do I need to tell anyone about the trip?"
+        }
+      ],
+      "checks": [
+        {
+          "turn_index": 0,
+          "must_reference": "30 calendar days"
+        },
+        {
+          "turn_index": 1,
+          "must_reference": "Legal"
+        },
+        {
+          "turn_index": 2,
+          "must_reference": "60 days"
+        }
+      ]
+    },
+    {
+      "id": "memory-conv-002",
+      "turns": [
+        {
+          "role": "user",
+          "content": "My NimbusView monitor from order TC-2048 arrived with a shattered screen. What are my options?"
+        },
+        {
+          "role": "user",
+          "content": "I'd rather have the money back. How long will that take?"
+        },
+        {
+          "role": "user",
+          "content": "It cost $649 by the way. Does that change anything about the process?"
+        }
+      ],
+      "checks": [
+        {
+          "turn_index": 0,
+          "must_reference": "full refund or free replacement"
+        },
+        {
+          "turn_index": 1,
+          "must_reference": "5-10 business days"
+        },
+        {
+          "turn_index": 2,
+          "must_reference": "Tier 2 manager approval"
+        }
+      ]
+    },
+    {
+      "id": "memory-conv-003",
+      "turns": [
+        {
+          "role": "user",
+          "content": "How many vacation days do I get per year at TechCorp?"
+        },
+        {
+          "role": "user",
+          "content": "If I don't use them all, do they disappear?"
+        },
+        {
+          "role": "user",
+          "content": "Okay, and what's the deadline to use the ones I bring with me?"
+        }
+      ],
+      "checks": [
+        {
+          "turn_index": 0,
+          "must_reference": "25 vacation days"
+        },
+        {
+          "turn_index": 1,
+          "must_reference": "5"
+        },
+        {
+          "turn_index": 2,
+          "must_reference": "March 31"
+        }
+      ]
+    }
+  ]
+}

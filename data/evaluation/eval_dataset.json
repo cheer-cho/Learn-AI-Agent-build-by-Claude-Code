@@ -1,0 +1,301 @@
+{
+  "examples": [
+    {
+      "id": "eval-001",
+      "question": "How many days per week do office-based employees have to work from a TechCorp office?",
+      "category": "answerable",
+      "expected_sources": ["hr-remote-work"],
+      "expected_facts": ["minimum of 2 days per week in the office"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-002",
+      "question": "How much is the annual home office stipend at TechCorp?",
+      "category": "answerable",
+      "expected_sources": ["hr-remote-work"],
+      "expected_facts": ["$500 per year"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-003",
+      "question": "How many days per year can I work remotely from another country with just my manager's approval?",
+      "category": "answerable",
+      "expected_sources": ["hr-international-remote"],
+      "expected_facts": ["up to 30 calendar days per year", "60 days advance notice", "manager approval"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-004",
+      "question": "How many vacation days do TechCorp employees get each year, and how many can be carried over?",
+      "category": "answerable",
+      "expected_sources": ["hr-vacation"],
+      "expected_facts": ["25 vacation days per year", "up to 5 days carry over", "must be used by March 31"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-005",
+      "question": "When do I need a doctor's note for sick leave?",
+      "category": "answerable",
+      "expected_sources": ["hr-vacation"],
+      "expected_facts": ["doctor's note required after 3 consecutive sick days", "sick leave is unlimited and separate from vacation"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-006",
+      "question": "How long do departing employees have to return their company equipment?",
+      "category": "answerable",
+      "expected_sources": ["hr-equipment"],
+      "expected_facts": ["within 14 days of departure"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-007",
+      "question": "My package arrived broken. How long do I have to claim a refund, and what evidence do I need?",
+      "category": "answerable",
+      "expected_sources": ["support-refund-damaged"],
+      "expected_facts": ["within 30 days of delivery", "photo evidence required", "full refund or free replacement", "refund processed in 5-10 business days to the original payment method"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-008",
+      "question": "Is there a restocking fee if I return an opened product?",
+      "category": "answerable",
+      "expected_sources": ["support-returns"],
+      "expected_facts": ["15% restocking fee for opened items", "30-day return window from delivery"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-009",
+      "question": "How long is the standard warranty and does it cover water damage?",
+      "category": "answerable",
+      "expected_sources": ["support-warranty"],
+      "expected_facts": ["standard warranty is 24 months", "does not cover water damage, drops, or unauthorized repair"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-010",
+      "question": "How long is customer account data kept after an account deletion request, and how long are order records kept?",
+      "category": "answerable",
+      "expected_sources": ["privacy-retention"],
+      "expected_facts": ["account data retained 30 days after deletion request", "order records kept 7 years for tax law"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-011",
+      "question": "Am I allowed to wear denim at headquarters?",
+      "category": "paraphrase",
+      "expected_sources": ["hr-dress-code"],
+      "expected_facts": ["jeans are allowed at headquarters", "not permitted during client meetings"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-012",
+      "question": "Where can I find the staff time-off guidelines, and what's the headline entitlement?",
+      "category": "paraphrase",
+      "expected_sources": ["hr-vacation"],
+      "expected_facts": ["25 vacation days per year"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-013",
+      "question": "Can I sync my work files to my own Dropbox account?",
+      "category": "paraphrase",
+      "expected_sources": ["hr-equipment"],
+      "expected_facts": ["personal cloud storage not allowed for company data"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-014",
+      "question": "During which hours does everyone need to be reachable for teamwork, regardless of where they work?",
+      "category": "paraphrase",
+      "expected_sources": ["hr-remote-work"],
+      "expected_facts": ["core collaboration hours 10:00 to 15:00 local time"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-015",
+      "question": "If a shopper changes their mind about a purchase, how many days do they get to send it back?",
+      "category": "paraphrase",
+      "expected_sources": ["support-returns"],
+      "expected_facts": ["30 days from delivery", "unopened for a full refund"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-016",
+      "question": "What is TechCorp's policy for working from the Moon?",
+      "category": "unanswerable",
+      "expected_sources": [],
+      "expected_facts": [],
+      "should_abstain": true,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-017",
+      "question": "What is the CEO's salary at TechCorp?",
+      "category": "unanswerable",
+      "expected_sources": [],
+      "expected_facts": [],
+      "should_abstain": true,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-018",
+      "question": "Does TechCorp reimburse gym memberships as part of its wellness program?",
+      "category": "unanswerable",
+      "expected_sources": [],
+      "expected_facts": [],
+      "should_abstain": true,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-019",
+      "question": "What discount do employees get on TechCorp products?",
+      "category": "unanswerable",
+      "expected_sources": [],
+      "expected_facts": [],
+      "should_abstain": true,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-020",
+      "question": "How many paid volunteering days does TechCorp offer per year?",
+      "category": "unanswerable",
+      "expected_sources": [],
+      "expected_facts": [],
+      "should_abstain": true,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-021",
+      "question": "My $800 laptop arrived cracked in the box. Can support refund me right away, or does someone else have to sign off?",
+      "category": "multi_chunk",
+      "expected_sources": ["support-refund-damaged", "support-escalation"],
+      "expected_facts": ["damaged arrivals qualify for a full refund within 30 days with photo evidence", "refunds over $500 require Tier 2 manager approval", "Tier 2 has a 48-hour SLA"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-022",
+      "question": "I want to work from Portugal for 45 days. What approvals do I need, and can I still count those days toward my in-office requirement?",
+      "category": "multi_chunk",
+      "expected_sources": ["hr-international-remote", "hr-remote-work"],
+      "expected_facts": ["stays over 30 days require Legal and HR approval", "over 30 days only allowed from countries with a TechCorp legal entity", "office-based roles require 2 days per week in office"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-023",
+      "question": "If I delete my TechCorp account, what happens to my personal data, my old orders, and my support tickets?",
+      "category": "multi_chunk",
+      "expected_sources": ["privacy-retention", "privacy-deletion"],
+      "expected_facts": ["account data deleted 30 days after request", "order records kept 7 years for tax law", "support tickets retained 3 years", "backups purged within 90 days"],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-024",
+      "question": "Can I return it?",
+      "category": "ambiguous",
+      "expected_sources": [],
+      "expected_facts": [],
+      "should_abstain": true,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-025",
+      "question": "How long do I have?",
+      "category": "ambiguous",
+      "expected_sources": [],
+      "expected_facts": [],
+      "should_abstain": true,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-026",
+      "question": "What is 15% of $342.50?",
+      "category": "tool_routing",
+      "expected_sources": [],
+      "expected_facts": ["51.375"],
+      "should_abstain": false,
+      "expected_tool": "calculator"
+    },
+    {
+      "id": "eval-027",
+      "question": "If I take 25 vacation days and carry over 5 each year, how many total days off is that across 3 years?",
+      "category": "tool_routing",
+      "expected_sources": [],
+      "expected_facts": ["75 base vacation days over 3 years"],
+      "should_abstain": false,
+      "expected_tool": "calculator"
+    },
+    {
+      "id": "eval-028",
+      "question": "Where is my order TC-1234 right now?",
+      "category": "tool_routing",
+      "expected_sources": [],
+      "expected_facts": ["status: in_transit", "estimated delivery 2026-08-06"],
+      "should_abstain": false,
+      "expected_tool": "order_lookup"
+    },
+    {
+      "id": "eval-029",
+      "question": "Order TC-2048 hasn't shown up yet. What's going on with it?",
+      "category": "tool_routing",
+      "expected_sources": [],
+      "expected_facts": ["status: delayed", "investigation_open"],
+      "should_abstain": false,
+      "expected_tool": "order_lookup"
+    },
+    {
+      "id": "eval-030",
+      "question": "What does the extended warranty TechCare+ add on top of the standard coverage?",
+      "category": "tool_routing",
+      "expected_sources": ["support-warranty"],
+      "expected_facts": ["adds 12 months of coverage", "one accidental-damage repair"],
+      "should_abstain": false,
+      "expected_tool": "document_search"
+    },
+    {
+      "id": "eval-031",
+      "question": "How quickly must a data deletion request be verified and completed under TechCorp policy?",
+      "category": "tool_routing",
+      "expected_sources": ["privacy-deletion"],
+      "expected_facts": ["verified within 72 hours", "completed within 30 days"],
+      "should_abstain": false,
+      "expected_tool": "document_search"
+    },
+    {
+      "id": "eval-032",
+      "question": "Hi there! Just wanted to say thanks for the help earlier.",
+      "category": "tool_routing",
+      "expected_sources": [],
+      "expected_facts": [],
+      "should_abstain": false,
+      "expected_tool": null
+    },
+    {
+      "id": "eval-033",
+      "question": "Can you explain in your own words what a warranty generally is?",
+      "category": "tool_routing",
+      "expected_sources": [],
+      "expected_facts": [],
+      "should_abstain": false,
+      "expected_tool": null
+    }
+  ]
+}

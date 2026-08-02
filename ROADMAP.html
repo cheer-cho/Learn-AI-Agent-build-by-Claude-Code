@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Engineer: Zero → Hero Roadmap</title>
+<meta name="description" content="Your 23-module path from first LLM call to production AI engineer — with checkpoint tracking.">
+<style>
+  :root {
+    --ink: #1C2723;
+    --ink-soft: #3D4A45;
+    --muted: #66756E;
+    --ground: #F7F8F5;
+    --panel: #FFFFFF;
+    --line: #DDE3DF;
+    --accent: #0E7A5F;
+    --accent-wash: #E7F1ED;
+    --new: #B4761F;
+    --new-wash: #F8EEDD;
+    --display: "Avenir Next", "Avenir", "Segoe UI", system-ui, sans-serif;
+    --serif: "Charter", "Iowan Old Style", Georgia, serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--display);
+    line-height: 1.55;
+    font-size: 16px;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 56px 24px 72px; }
+
+  /* ---------- header ---------- */
+  .kicker {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+  h1 {
+    font-size: clamp(30px, 5vw, 44px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    margin: 0 0 16px;
+    text-wrap: balance;
+  }
+  h1 .arrow { color: var(--accent); }
+  .lede {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0 0 26px;
+  }
+  .stack-line {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 32px;
+  }
+  .stack-line b { color: var(--ink); font-weight: 600; }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .stat { flex: 1 1 130px; padding: 16px 18px 14px; border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: none; }
+  .stat .n {
+    font-size: 26px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    display: block;
+    line-height: 1.1;
+  }
+  .stat .l { font-size: 12.5px; color: var(--muted); }
+  .stat.progress .n { color: var(--accent); }
+
+  .bar {
+    height: 6px;
+    background: var(--line);
+    border-radius: 999px;
+    margin: 18px 0 48px;
+    overflow: hidden;
+  }
+  .bar .fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.35s ease;
+  }
+  @media (prefers-reduced-motion: reduce) { .bar .fill { transition: none; } }
+
+  /* ---------- section headings ---------- */
+  h2 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 56px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  /* ---------- story arc ---------- */
+  .arc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 640px) { .arc { grid-template-columns: 1fr; } }
+  .act {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 18px 18px 16px;
+  }
+  .act .act-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .act h3 { font-size: 15.5px; margin: 0 0 6px; font-weight: 600; }
+  .act p {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* ---------- levels + rail ---------- */
+  .path { position: relative; padding-left: 34px; }
+  .path::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--line), var(--accent));
+  }
+  .level { position: relative; margin-bottom: 40px; }
+  .level:last-child { margin-bottom: 0; }
+  .level::before {
+    content: "";
+    position: absolute;
+    left: -30px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--ground);
+    border: 2.5px solid var(--accent);
+  }
+  .level.finale::before { background: var(--accent); box-shadow: 0 0 0 4px var(--accent-wash); }
+
+  .level-head { margin-bottom: 12px; }
+  .level-eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .lvl-count { font-variant-numeric: tabular-nums; color: var(--accent); letter-spacing: 0.04em; }
+  .level-head h3 {
+    font-size: 21px;
+    font-weight: 700;
+    margin: 2px 0 4px;
+    letter-spacing: -0.01em;
+  }
+  .milestone {
+    display: inline-block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-wash);
+    border-radius: 999px;
+    padding: 3px 12px;
+  }
+  .milestone.achieved::before { content: "✓ "; }
+  .level.finale .milestone { color: #8A5A15; background: var(--new-wash); }
+
+  .modules {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .mod {
+    display: grid;
+    grid-template-columns: 26px 40px 1fr;
+    gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .mod:last-child { border-bottom: none; }
+  .tick {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    background: var(--panel);
+    cursor: pointer;
+    position: relative;
+    top: 3px;
+    flex-shrink: 0;
+  }
+  .tick:hover { border-color: var(--accent); }
+  .tick:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .tick:checked { background: var(--accent); border-color: var(--accent); }
+  .tick:checked::after {
+    content: "";
+    position: absolute;
+    left: 5px; top: 1.5px;
+    width: 5px; height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .mod .code {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .mod .name { font-weight: 600; font-size: 15px; }
+  .mod .name a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+  .mod .name a:hover { text-decoration-color: var(--accent); color: var(--accent); }
+  .mod .name a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+  .mod .what {
+    display: block;
+    font-size: 13.5px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 1px;
+  }
+  .mod.done .code, .mod.done .name, .mod.done .name a { color: var(--muted); }
+  .mod.done .name a { text-decoration-color: var(--line); }
+  .chip {
+    display: inline-block;
+    vertical-align: 2px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--new);
+    background: var(--new-wash);
+    border-radius: 3px;
+    padding: 1.5px 7px;
+    margin-left: 8px;
+  }
+  .chip.cap { color: var(--accent); background: var(--accent-wash); }
+
+  .legend {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 14px 0 0;
+  }
+
+  /* ---------- module anatomy ---------- */
+  .anatomy {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 20px 22px;
+  }
+  .anatomy p { margin: 0 0 14px; font-size: 15px; color: var(--ink-soft); }
+  .files {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .files li { font-size: 14px; padding-left: 2px; }
+  .files code {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--accent);
+    background: var(--accent-wash);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+  .files span { color: var(--muted); }
+
+  /* ---------- takeaways ---------- */
+  .takeaways { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .takeaways { grid-template-columns: 1fr; } }
+  .take {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 16px 18px;
+  }
+  .take h4 { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
+  .take p { margin: 0; font-size: 13.5px; color: var(--muted); }
+
+  /* ---------- footer / next ---------- */
+  .next {
+    margin-top: 56px;
+    background: var(--ink);
+    color: #EDF2EF;
+    border-radius: 8px;
+    padding: 26px 26px 24px;
+  }
+  .next h2 { color: #9DB5AC; margin: 0 0 12px; }
+  .next h2::after { background: #37453F; }
+  .next p { margin: 0 0 10px; font-size: 15px; max-width: 64ch; }
+  .next .cmd {
+    font-family: var(--mono);
+    font-size: 13px;
+    background: #101815;
+    border: 1px solid #2C3A34;
+    border-radius: 5px;
+    padding: 10px 14px;
+    margin-top: 14px;
+    color: #7FD4B8;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .foot {
+    margin-top: 28px;
+    font-size: 12.5px;
+    color: var(--muted);
+    font-family: var(--mono);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  #reset {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+  #reset:hover { color: var(--new); border-color: var(--new); }
+  #reset:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Course roadmap · checkpoint tracker</p>
+  <h1>AI Engineer: Zero <span class="arrow">→</span> Hero</h1>
+  <p class="lede">One continuous project — the TechCorp Knowledge Agent — built lab by lab from your first LLM API call to a deployed, evaluated, multi-agent production system. Tick each module as you finish its checklist; your progress is saved in this browser.</p>
+  <p class="stack-line">Stack: <b>Python 3.11+</b> · <b>LangChain</b> · <b>LangGraph</b> · <b>MCP</b> · <b>LangSmith</b> · ChromaDB · Sentence Transformers · FastAPI · Docker</p>
+
+  <div class="stats">
+    <div class="stat"><span class="n">5</span><span class="l">levels</span></div>
+    <div class="stat"><span class="n">23</span><span class="l">modules, all hands-on labs</span></div>
+    <div class="stat"><span class="n">2</span><span class="l">capstones (v1 + v2)</span></div>
+    <div class="stat progress"><span class="n"><span id="done-count">0</span>/23</span><span class="l">modules completed</span></div>
+  </div>
+  <div class="bar" role="progressbar" aria-label="Course progress"><div class="fill" id="bar-fill"></div></div>
+
+  <h2>The story you learn inside</h2>
+  <div class="arc">
+    <div class="act">
+      <span class="act-tag">Act 1 · Modules 00–09</span>
+      <h3>Junior AI Engineer</h3>
+      <p>You join TechCorp and prototype a knowledge assistant: raw LLM calls, prompting, then retrieval over the company's policy documents.</p>
+    </div>
+    <div class="act">
+      <span class="act-tag">Act 2 · Modules 10–14</span>
+      <h3>AI Engineer</h3>
+      <p>Leadership is impressed. You turn the prototype into a real agent with workflows, tools, and MCP — and ship v1 to a pilot team.</p>
+    </div>
+    <div class="act">
+      <span class="act-tag">Act 3 · Modules 15–22</span>
+      <h3>Senior AI Engineer</h3>
+      <p>Company-wide rollout approved — with production demands: memory, streaming, approvals, security review, deployment. You ship v2.</p>
+    </div>
+  </div>
+
+  <h2>The path</h2>
+  <div class="path">
+
+    <div class="level">
+      <div class="level-head">
+        <span class="level-eyebrow"><span>Level 1 · Modules 00–04 · Foundations</span><span class="lvl-count">0/5</span></span>
+        <h3>Foundations</h3>
+        <span class="milestone">Milestone: call and control an LLM professionally</span>
+      </div>
+      <div class="modules">
+        <div class="mod" data-id="00"><input type="checkbox" class="tick" aria-label="Mark Module 00 complete"><span class="code">00</span><span class="name"><a href="course/00_setup/README.md">Environment &amp; Setup</a><span class="what">Virtual env, dependencies, .env secrets, verification script, offline test mode</span></span></div>
+        <div class="mod" data-id="01"><input type="checkbox" class="tick" aria-label="Mark Module 01 complete"><span class="code">01</span><span class="name"><a href="course/01_llm_fundamentals/README.md">LLM Fundamentals, Tokens &amp; Context</a><span class="what">Token-and-context explorer — see why irrelevant context hurts answers</span></span></div>
+        <div class="mod" data-id="02"><input type="checkbox" class="tick" aria-label="Mark Module 02 complete"><span class="code">02</span><span class="name"><a href="course/02_first_api_call/README.md">First LLM API Call</a><span class="what">Roles, response anatomy, token usage, cost math, error handling</span></span></div>
+        <div class="mod" data-id="03"><input type="checkbox" class="tick" aria-label="Mark Module 03 complete"><span class="code">03</span><span class="name"><a href="course/03_langchain/README.md">LangChain Fundamentals</a><span class="what">SDK vs framework side by side, prompt templates, structured output, chains</span></span></div>
+        <div class="mod" data-id="04"><input type="checkbox" class="tick" aria-label="Mark Module 04 complete"><span class="code">04</span><span class="name"><a href="course/04_prompt_engineering/README.md">Prompt Engineering</a><span class="what">Zero/one/few-shot, decomposition, scored against a rubric</span></span></div>
+      </div>
+    </div>
+
+    <div class="level">
+      <div class="level-head">
+        <span class="level-eyebrow"><span>Level 2 · Modules 05–09 · Retrieval &amp; RAG</span><span class="lvl-count">0/5</span></span>
+        <h3>Retrieval &amp; RAG</h3>
+        <span class="milestone">Milestone: build a trustworthy knowledge system</span>
+      </div>
+      <div class="modules">
+        <div class="mod" data-id="05"><input type="checkbox" class="tick" aria-label="Mark Module 05 complete"><span class="code">05</span><span class="name"><a href="course/05_embeddings/README.md">Embeddings</a><span class="what">Vectors, cosine similarity, semantic vs keyword matching, false positives</span></span></div>
+        <div class="mod" data-id="06"><input type="checkbox" class="tick" aria-label="Mark Module 06 complete"><span class="code">06</span><span class="name"><a href="course/06_semantic_search/README.md">Semantic Search</a><span class="what">A search engine over TechCorp docs that finds meaning, not words</span></span></div>
+        <div class="mod" data-id="07"><input type="checkbox" class="tick" aria-label="Mark Module 07 complete"><span class="code">07</span><span class="name"><a href="course/07_vector_database/README.md">Vector Databases &amp; Chunking</a><span class="what">ChromaDB persistence plus a measured chunking experiment</span></span></div>
+        <div class="mod" data-id="08"><input type="checkbox" class="tick" aria-label="Mark Module 08 complete"><span class="code">08</span><span class="name"><a href="course/08_rag/README.md">Retrieval-Augmented Generation</a><span class="what">Grounded answers with citations — and abstention when evidence is missing</span></span></div>
+        <div class="mod" data-id="09"><input type="checkbox" class="tick" aria-label="Mark Module 09 complete"><span class="code">09</span><span class="name"><a href="course/09_grounding_and_evaluation/README.md">Grounding &amp; Evaluation</a><span class="what">Eval dataset, hit rate, source accuracy, abstention correctness</span></span></div>
+      </div>
+    </div>
+
+    <div class="level">
+      <div class="level-head">
+        <span class="level-eyebrow"><span>Level 3 · Modules 10–14 · Agents &amp; Orchestration</span><span class="lvl-count">0/5</span></span>
+        <h3>Agents &amp; Orchestration</h3>
+        <span class="milestone">Milestone: ship a working agentic application</span>
+      </div>
+      <div class="modules">
+        <div class="mod" data-id="10"><input type="checkbox" class="tick" aria-label="Mark Module 10 complete"><span class="code">10</span><span class="name"><a href="course/10_langgraph/README.md">LangGraph Fundamentals</a><span class="what">Nodes, edges, state, conditional routes, bounded retry loops</span></span></div>
+        <div class="mod" data-id="11"><input type="checkbox" class="tick" aria-label="Mark Module 11 complete"><span class="code">11</span><span class="name"><a href="course/11_tools_and_routing/README.md">Tools &amp; Intelligent Routing</a><span class="what">Calculator, doc search, order lookup — plus six failure-mode exercises</span></span></div>
+        <div class="mod" data-id="12"><input type="checkbox" class="tick" aria-label="Mark Module 12 complete"><span class="code">12</span><span class="name"><a href="course/12_mcp/README.md">MCP Fundamentals</a><span class="what">Build your first MCP server and client; schemas, discovery, trust</span></span></div>
+        <div class="mod" data-id="13"><input type="checkbox" class="tick" aria-label="Mark Module 13 complete"><span class="code">13</span><span class="name"><a href="course/13_multi_server_mcp/README.md">Multiple MCP Servers</a><span class="what">Unified tool registry, namespacing, graceful partial failure</span></span></div>
+        <div class="mod" data-id="14"><input type="checkbox" class="tick" aria-label="Mark Module 14 complete"><span class="code">14</span><span class="name"><a href="course/14_capstone_v1/README.md">Capstone: Knowledge Agent v1</a><span class="chip cap">Capstone</span><span class="what">RAG + routing + tools + MCP behind one CLI, fully tested</span></span></div>
+      </div>
+    </div>
+
+    <div class="level">
+      <div class="level-head">
+        <span class="level-eyebrow"><span>Level 4 · Modules 15–21 · Production AI Engineering</span><span class="lvl-count">0/7</span></span>
+        <h3>Production AI Engineering</h3>
+        <span class="milestone">Milestone: ship and operate agents in production</span>
+      </div>
+      <div class="modules">
+        <div class="mod" data-id="15"><input type="checkbox" class="tick" aria-label="Mark Module 15 complete"><span class="code">15</span><span class="name"><a href="course/15_memory_and_persistence/README.md">Memory &amp; Persistence</a><span class="chip">Added</span><span class="what">Checkpointers, multi-turn threads, summarization, long-term user memory</span></span></div>
+        <div class="mod" data-id="16"><input type="checkbox" class="tick" aria-label="Mark Module 16 complete"><span class="code">16</span><span class="name"><a href="course/16_streaming_and_hitl/README.md">Streaming &amp; Human-in-the-Loop</a><span class="chip">Added</span><span class="what">Token/event streaming; interrupt, approve, and resume sensitive actions</span></span></div>
+        <div class="mod" data-id="17"><input type="checkbox" class="tick" aria-label="Mark Module 17 complete"><span class="code">17</span><span class="name"><a href="course/17_advanced_rag/README.md">Advanced RAG</a><span class="chip">Added</span><span class="what">Hybrid search, reranking, query rewriting — every gain measured vs baseline</span></span></div>
+        <div class="mod" data-id="18"><input type="checkbox" class="tick" aria-label="Mark Module 18 complete"><span class="code">18</span><span class="name"><a href="course/18_multi_agent/README.md">Multi-Agent Systems</a><span class="chip">Added</span><span class="what">Supervisor + policy/support/orders specialists, honestly compared to v1</span></span></div>
+        <div class="mod" data-id="19"><input type="checkbox" class="tick" aria-label="Mark Module 19 complete"><span class="code">19</span><span class="name"><a href="course/19_observability_and_evaluation/README.md">Observability &amp; Evaluation</a><span class="chip">Added</span><span class="what">LangSmith tracing, datasets, experiments; catch a regression on purpose</span></span></div>
+        <div class="mod" data-id="20"><input type="checkbox" class="tick" aria-label="Mark Module 20 complete"><span class="code">20</span><span class="name"><a href="course/20_guardrails_and_safety/README.md">Guardrails, Safety &amp; Cost Control</a><span class="chip">Added</span><span class="what">Prompt-injection attack and defense, output validation, budget caps</span></span></div>
+        <div class="mod" data-id="21"><input type="checkbox" class="tick" aria-label="Mark Module 21 complete"><span class="code">21</span><span class="name"><a href="course/21_production_deployment/README.md">Production Deployment</a><span class="chip">Added</span><span class="what">Streaming FastAPI service, Docker, health checks, CI running offline tests</span></span></div>
+      </div>
+    </div>
+
+    <div class="level finale">
+      <div class="level-head">
+        <span class="level-eyebrow"><span>Level 5 · Module 22 · Hero Capstone</span><span class="lvl-count">0/1</span></span>
+        <h3>Hero Capstone &amp; Career</h3>
+        <span class="milestone">Milestone: interview-ready AI engineer</span>
+      </div>
+      <div class="modules">
+        <div class="mod" data-id="22"><input type="checkbox" class="tick" aria-label="Mark Module 22 complete"><span class="code">22</span><span class="name"><a href="course/22_hero_capstone/README.md">Knowledge Agent v2 + Portfolio</a><span class="chip">Added</span><span class="what">Everything combined and deployed — plus architecture doc, demo script, portfolio README, and an interview question bank mapped to your own code</span></span></div>
+      </div>
+    </div>
+
+  </div>
+  <p class="legend">Amber <em>Added</em> chips mark the eight modules extending the original spec from intermediate to production-hero level. Module titles link into <code>course/…</code> once the repository is generated; every module README links back here.</p>
+
+  <h2>How every module works</h2>
+  <div class="anatomy">
+    <p>Same structure everywhere, so you never guess where things are. Offline-first: default tests run without paid API calls; live-model labs are clearly marked.</p>
+    <ul class="files">
+      <li><code>concepts.md</code> <span>— the why, plain language, no unexplained jargon</span></li>
+      <li><code>lab.md</code> <span>— step-by-step tasks with checkpoints and hints</span></li>
+      <li><code>starter/</code> <span>— runnable code with meaningful TODOs</span></li>
+      <li><code>solution/</code> <span>— working reference implementation</span></li>
+      <li><code>tests/</code> <span>— automated verification of what you built</span></li>
+      <li><code>checklist.md</code> <span>— self-check before moving on</span></li>
+    </ul>
+  </div>
+
+  <h2>What you walk away with</h2>
+  <div class="takeaways">
+    <div class="take"><h4>A production agent system</h4><p>Multi-agent, memory-backed, streaming, guarded, deployed — running on your machine, rebuildable from a clean clone.</p></div>
+    <div class="take"><h4>Evidence, not vibes</h4><p>Evaluation reports proving retrieval quality, answer grounding, and that each upgrade actually helped.</p></div>
+    <div class="take"><h4>A portfolio piece</h4><p>Architecture doc with trade-off reasoning, a five-minute demo script, and a publishable project README.</p></div>
+    <div class="take"><h4>Interview readiness</h4><p>A question bank mapping every module to common AI-engineering interview topics — answered by code you wrote.</p></div>
+  </div>
+
+  <div class="next">
+    <h2>How to use this page</h2>
+    <p>This is your home base. Click a module title to jump into its lab; when its <strong>checklist.md</strong> passes, come back and tick it off. Checkpoints save in this browser via localStorage — no server, no account.</p>
+    <p>Start (or resume) with:</p>
+    <div class="cmd">make setup &amp;&amp; python scripts/verify_environment.py</div>
+  </div>
+
+  <p class="foot">
+    <span>TechCorp is fictional · all data is mock · offline mode needs no API key</span>
+    <button id="reset" type="button">Reset progress</button>
+  </p>
+</div>
+
+<script>
+  (function () {
+    var KEY = "techcorp-roadmap-progress";
+    var saved;
+    try { saved = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); }
+    catch (e) { saved = new Set(); }
+
+    var mods = Array.prototype.slice.call(document.querySelectorAll(".mod"));
+
+    function persist() {
+      try { localStorage.setItem(KEY, JSON.stringify(Array.from(saved))); } catch (e) {}
+    }
+
+    function render() {
+      var done = mods.filter(function (m) { return m.classList.contains("done"); }).length;
+      document.getElementById("done-count").textContent = done;
+      document.getElementById("bar-fill").style.width = (done / mods.length * 100) + "%";
+      document.querySelectorAll(".level").forEach(function (lv) {
+        var ms = Array.prototype.slice.call(lv.querySelectorAll(".mod"));
+        var d = ms.filter(function (m) { return m.classList.contains("done"); }).length;
+        var c = lv.querySelector(".lvl-count");
+        if (c) c.textContent = d + "/" + ms.length;
+        var chip = lv.querySelector(".milestone");
+        if (chip) chip.classList.toggle("achieved", d === ms.length);
+      });
+    }
+
+    mods.forEach(function (m) {
+      var id = m.getAttribute("data-id");
+      var tick = m.querySelector(".tick");
+      tick.checked = saved.has(id);
+      m.classList.toggle("done", tick.checked);
+      tick.addEventListener("change", function () {
+        if (tick.checked) saved.add(id); else saved.delete(id);
+        m.classList.toggle("done", tick.checked);
+        persist();
+        render();
+      });
+    });
+
+    document.getElementById("reset").addEventListener("click", function () {
+      if (!confirm("Clear all checkpoint progress?")) return;
+      saved.clear();
+      persist();
+      mods.forEach(function (m) {
+        m.classList.remove("done");
+        m.querySelector(".tick").checked = false;
+      });
+      render();
+    });
+
+    render();
+  })();
+</script>
+</body>
+</html>

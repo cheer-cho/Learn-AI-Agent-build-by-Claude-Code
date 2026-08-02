@@ -1,0 +1,27 @@
+# Secrets — never commit
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+
+# Vector store & runtime data
+.chroma/
+*.sqlite3
+artifacts/traces/
+
+# ML model caches
+.cache/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
