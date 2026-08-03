@@ -12,7 +12,7 @@ repeatable; wall-clock latency varies run to run but its *shape* does not
 |---|---:|---:|---:|
 | LLM calls | 10 | 16 | +6 |
 | total tokens | 5776 | 6262 | +486 |
-| latency (s) | 0.0255 | 0.0050 | -0.0205 |
+| latency (s) | 0.0253 | 0.0056 | -0.0197 |
 | failures | 0 | 0 | +0 |
 
 ## Per-question answers
