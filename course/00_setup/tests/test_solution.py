@@ -10,6 +10,8 @@ from __future__ import annotations
 import subprocess
 from pathlib import Path
 
+import pytest
+
 from techcorp_agent.course_utils import import_from_path
 
 MODULE_DIR = Path(__file__).resolve().parents[1]
@@ -17,12 +19,34 @@ PROJECT_ROOT = MODULE_DIR.parents[1]
 
 solution = import_from_path("m00_solution_check", MODULE_DIR / "solution" / "check_secrets.py")
 
+
+@pytest.fixture
+def env_file_present():
+    """Guarantee a repo-root .env exists for audit tests that require it.
+
+    A fresh checkout (CI, a clone before `make setup`) has no .env because it is
+    gitignored. Create one from .env.example if absent, and remove it afterward
+    only if this fixture created it — never clobber a learner's real .env."""
+    env_path = PROJECT_ROOT / ".env"
+    created = False
+    if not env_path.exists():
+        env_path.write_text(
+            (PROJECT_ROOT / ".env.example").read_text(encoding="utf-8"), encoding="utf-8"
+        )
+        created = True
+    try:
+        yield env_path
+    finally:
+        if created:
+            env_path.unlink(missing_ok=True)
+
+
 # A key-shaped string for negative tests, assembled so that this test file
 # itself never contains a literal match for the audit's pattern.
 FAKE_KEY = "sk-" + "A" * 20
 
 
-def test_env_exists_check_passes():
+def test_env_exists_check_passes(env_file_present):
     passed, detail = solution.check_env_exists(PROJECT_ROOT)
     assert passed, detail
 
@@ -42,7 +66,7 @@ def test_no_leaked_keys_check_passes():
     assert passed, detail
 
 
-def test_main_exits_zero_and_reports_every_check(capsys):
+def test_main_exits_zero_and_reports_every_check(env_file_present, capsys):
     assert solution.main(PROJECT_ROOT) == 0
     out = capsys.readouterr().out
     assert out.count("[PASS]") == 4

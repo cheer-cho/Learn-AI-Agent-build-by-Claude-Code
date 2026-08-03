@@ -31,7 +31,25 @@ def my_work():
     return import_from_path("m00_starter_check", STARTER_DIR / "check_secrets.py")
 
 
-def test_env_exists_check_passes(my_work):
+@pytest.fixture
+def env_file_present():
+    """Ensure a repo-root .env exists for audit tests (create from the template
+    if absent, e.g. a fresh clone), removing it afterward only if we made it."""
+    env_path = PROJECT_ROOT / ".env"
+    created = False
+    if not env_path.exists():
+        env_path.write_text(
+            (PROJECT_ROOT / ".env.example").read_text(encoding="utf-8"), encoding="utf-8"
+        )
+        created = True
+    try:
+        yield env_path
+    finally:
+        if created:
+            env_path.unlink(missing_ok=True)
+
+
+def test_env_exists_check_passes(my_work, env_file_present):
     passed, detail = my_work.check_env_exists(PROJECT_ROOT)
     assert passed, detail
 
@@ -51,7 +69,7 @@ def test_no_leaked_keys_check_passes(my_work):
     assert passed, detail
 
 
-def test_main_exits_zero_and_reports_every_check(my_work, capsys):
+def test_main_exits_zero_and_reports_every_check(my_work, env_file_present, capsys):
     assert my_work.main(PROJECT_ROOT) == 0
     out = capsys.readouterr().out
     assert out.count("[PASS]") == 4
