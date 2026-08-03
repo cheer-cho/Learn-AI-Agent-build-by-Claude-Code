@@ -36,9 +36,7 @@ pytestmark = pytest.mark.skipif(
 
 @pytest.fixture(scope="module")
 def my_work():
-    return import_from_path(
-        "m06_starter_search_engine", STARTER_DIR / "search_engine.py"
-    )
+    return import_from_path("m06_starter_search_engine", STARTER_DIR / "search_engine.py")
 
 
 @pytest.fixture(scope="module")
@@ -87,7 +85,9 @@ def test_min_score_filters_low_results(engine):
 def test_identical_text_scores_one(engine):
     """Self-similarity: the exact text of an indexed chunk must come back as
     the top hit with cosine ≈ 1.0 — this proves your embed→store→rank wiring."""
-    chunk = next(c for c in engine.chunks if c.doc_id == "hr-dress-code" and "jeans" in c.text.lower())
+    chunk = next(
+        c for c in engine.chunks if c.doc_id == "hr-dress-code" and "jeans" in c.text.lower()
+    )
     results = engine.search(chunk.text, top_k=2)
     assert results[0].chunk.id == chunk.id
     assert results[0].score == pytest.approx(1.0, abs=1e-9)

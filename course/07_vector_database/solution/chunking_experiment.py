@@ -55,9 +55,7 @@ def load_eval_questions(dataset_path: Path | None = None) -> list[dict[str, Any]
 def _shingles(text: str) -> set[tuple[str, ...]]:
     """The set of SHINGLE_SIZE-word windows in `text` (lowercased)."""
     words = text.lower().split()
-    return {
-        tuple(words[i : i + SHINGLE_SIZE]) for i in range(len(words) - SHINGLE_SIZE + 1)
-    }
+    return {tuple(words[i : i + SHINGLE_SIZE]) for i in range(len(words) - SHINGLE_SIZE + 1)}
 
 
 def duplicate_rate(chunks: list[str]) -> float:
@@ -151,9 +149,7 @@ def write_report(results: list[dict[str, Any]], path: Path) -> Path:
     first = results[0]
     embedding_model = str(first.get("embedding_model", "unknown"))
     is_hash = embedding_model.startswith("hash-embedding")
-    client_kind = (
-        "offline hash client (word-overlap only)" if is_hash else "sentence-transformers"
-    )
+    client_kind = "offline hash client (word-overlap only)" if is_hash else "sentence-transformers"
 
     lines = [
         "# Module 07 — Chunking Experiment Report",
@@ -194,7 +190,7 @@ def write_report(results: list[dict[str, Any]], path: Path) -> Path:
             expected = ", ".join(failure["expected_sources"])
             retrieved = ", ".join(dict.fromkeys(failure["retrieved_doc_ids"])) or "(nothing)"
             lines.append(
-                f"- **{failure['id']}** — \"{failure['question']}\" "
+                f'- **{failure["id"]}** — "{failure["question"]}" '
                 f"(expected `{expected}`; retrieved docs: `{retrieved}`)"
             )
         lines.append("")

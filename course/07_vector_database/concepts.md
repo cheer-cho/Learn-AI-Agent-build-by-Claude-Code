@@ -35,7 +35,7 @@ distance = 1 − cosine_similarity      0.0 = identical direction, 2.0 = opposit
 Lower distance = closer. But the whole course (Module 06, `min_score` thresholds, the RAG modules ahead) uses the convention **higher = closer**. So `VectorStore.query()` converts every result once, at the boundary:
 
 ```python
-score = 1.0 - float(distance)   # back to cosine similarity: 1.0 identical, ~0 unrelated
+score = 1.0 - float(distance)  # back to cosine similarity: 1.0 identical, ~0 unrelated
 ```
 
 Read that line in `chroma_store.py` and commit the rule to memory: *know which direction your scores point before you compare them to a threshold.* A `min_score=0.3` filter applied to raw distances would keep the **worst** results and discard the best — and nothing would crash to tell you.

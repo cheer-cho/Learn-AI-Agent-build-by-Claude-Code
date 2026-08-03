@@ -113,7 +113,9 @@ class SearchEngine:
         if not query_words:
             return []
         results = [
-            RetrievedChunk(chunk=chunk, score=len(query_words & tokenize(chunk.text)) / len(query_words))
+            RetrievedChunk(
+                chunk=chunk, score=len(query_words & tokenize(chunk.text)) / len(query_words)
+            )
             for chunk in self.chunks
             if query_words & tokenize(chunk.text)
         ]

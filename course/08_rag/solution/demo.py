@@ -85,9 +85,7 @@ SCENARIOS = [
 def build_index() -> VectorStore:
     """Index the real data/ corpus into a throwaway directory under /tmp."""
     settings = get_settings()
-    embeddings = (
-        HashEmbeddingClient() if settings.offline else get_embedding_client(settings)
-    )
+    embeddings = HashEmbeddingClient() if settings.offline else get_embedding_client(settings)
     persist_dir = Path(tempfile.gettempdir()) / ".chroma-module08" / "corpus"
     store = VectorStore(embeddings, persist_dir=persist_dir, collection_name="module08_demo")
     store.reset()

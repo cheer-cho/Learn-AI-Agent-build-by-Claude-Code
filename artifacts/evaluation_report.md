@@ -5,7 +5,7 @@ Deterministic evaluation of the Module 08 RAG pipeline against
 
 ## Run context
 
-- **embedding client**: sentence-transformers/all-MiniLM-L6-v2
+- **embedding client**: hash-embedding-384d
 - **llm**: mock-offline
 - **k (retrieval depth scored)**: 4
 - **documents indexed**: 13
@@ -19,7 +19,7 @@ tool-using agent built in Level 3 (Module 11), not the RAG pipeline.
 
 | examples | hit rate@k | source accuracy | fact coverage | abstention accuracy |
 |---:|---:|---:|---:|---:|
-| 25 | 100% | 28% | 35% | 72% |
+| 25 | 88% | 28% | 28% | 72% |
 
 ## Results by category
 
@@ -33,7 +33,7 @@ tool-using agent built in Level 3 (Module 11), not the RAG pipeline.
 
 | examples | hit rate@k | source accuracy | fact coverage | abstention accuracy |
 |---:|---:|---:|---:|---:|
-| 10 | 100% | 0% | 17% | 100% |
+| 10 | 90% | 0% | 0% | 100% |
 
 ### multi_chunk
 
@@ -45,7 +45,7 @@ tool-using agent built in Level 3 (Module 11), not the RAG pipeline.
 
 | examples | hit rate@k | source accuracy | fact coverage | abstention accuracy |
 |---:|---:|---:|---:|---:|
-| 5 | 100% | 0% | 0% | 100% |
+| 5 | 60% | 0% | 0% | 100% |
 
 ### unanswerable
 

@@ -62,8 +62,7 @@ CORPUS = {
     ),
     "test-remote-work": (
         "Remote Work Policy",
-        "Employees may work remotely up to three days per week "
-        "within their country of employment.",
+        "Employees may work remotely up to three days per week within their country of employment.",
     ),
     "test-international": (
         "International Remote Work",
@@ -184,9 +183,7 @@ def test_low_similarity_retrieval_below_threshold_abstains(rag, store):
 
 
 def test_multi_chunk_question_supplies_both_sources_to_the_prompt(rag, store):
-    question = (
-        "How many days per week can I work remotely, and can I work from another country?"
-    )
+    question = "How many days per week can I work remotely, and can I work from another country?"
     llm = MockLLMClient(
         responses=[
             "You may work remotely up to three days per week; working from "

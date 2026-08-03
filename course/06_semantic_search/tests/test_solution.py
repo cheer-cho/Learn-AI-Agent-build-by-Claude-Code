@@ -101,7 +101,9 @@ def test_identical_text_scores_one(engine):
     """Self-similarity proves the embed→store→rank plumbing: the exact text of
     an indexed chunk must come back as the top hit with cosine ≈ 1.0 (identical
     text produces the identical vector, whatever the embedding model)."""
-    chunk = next(c for c in engine.chunks if c.doc_id == "hr-dress-code" and "jeans" in c.text.lower())
+    chunk = next(
+        c for c in engine.chunks if c.doc_id == "hr-dress-code" and "jeans" in c.text.lower()
+    )
     results = engine.search(chunk.text, top_k=2)
     assert results[0].chunk.id == chunk.id
     assert results[0].score == pytest.approx(1.0, abs=1e-9)
