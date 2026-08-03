@@ -16,8 +16,7 @@ from techcorp_agent.schemas import ChatMessage, RAGAnswer, RetrievedChunk
 from techcorp_agent.vectorstore.chroma_store import VectorStore
 
 ABSTENTION_TEXT = (
-    "I do not have enough information in the provided TechCorp documents "
-    "to answer that question."
+    "I do not have enough information in the provided TechCorp documents to answer that question."
 )
 
 SYSTEM_PROMPT = f"""You are TechCorp's internal knowledge assistant.
@@ -76,8 +75,7 @@ class RAGPipeline:
 
     def build_messages(self, question: str, chunks: list[RetrievedChunk]) -> list[ChatMessage]:
         user_content = (
-            f"Context documents:\n\n{build_context_block(chunks)}\n\n"
-            f"Question: {question}"
+            f"Context documents:\n\n{build_context_block(chunks)}\n\nQuestion: {question}"
         )
         return [
             ChatMessage(role="system", content=SYSTEM_PROMPT),
